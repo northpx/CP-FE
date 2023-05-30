@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
 import ProductCard from '../components/ProductCard'
-import ReactStars from 'react-stars';
+import ReactStars from 'react-rating-stars-component';
 import ReactImageZoom from 'react-image-zoom';
 import Color from '../components/Color';
 import {AiOutlineHeart} from 'react-icons/ai'
@@ -55,6 +55,7 @@ const SingleProduct = () => {
                                     <p className='price'>$ 100</p>
                                     <div className="d-flex align-items-center gap-10">
                                         <ReactStars
+                                            name='star'
                                             count={5}
                                             size={24}
                                             value={4}
@@ -117,11 +118,11 @@ const SingleProduct = () => {
                                     </div>
                                     <div className="d-flex gap-15 align-items-center my-2">
                                         <h3 className="product-heading mb-0">Product link:</h3>
-                                        <a href="javascript:void(0)" onClick={()=>{
+                                        <Link href="javascript:void(0)" onClick={()=>{
                                             copyToClipboard("http://localhost:3000/product/:id")
                                         }}>
                                             Copy product link
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="py-5">

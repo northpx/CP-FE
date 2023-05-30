@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import ReactStars from 'react-star-rating-component';
+import ReactStars from 'react-rating-stars-component';
 const ProductCard = (props) => {
   const { grid } = props
   let location = useLocation();
@@ -9,9 +9,9 @@ const ProductCard = (props) => {
       <div className={` ${location.pathname === "/:id" ? `gr-${grid}` : "col-3"}`}>
         <Link to=':id' className="product-card position-relative">
           <div className="wishlist-icon position-absolute">
-            <Link>
+            <div>
               <img src="/images/wish.svg" alt="wishlist" />
-            </Link>
+            </div>
           </div>
           <div className="product-image">
             <img src="/images/tab1.jpg" className='product-img' alt="product img" />
@@ -23,6 +23,7 @@ const ProductCard = (props) => {
               Kids headphone bulk 10 pack multi colored for students
             </h5>
             <ReactStars
+              name='star'
               count={5}
               size={24}
               value={4}
@@ -34,15 +35,15 @@ const ProductCard = (props) => {
           </div>
           <div className="action-bar position-absolute">
             <div className="d-flex flex-column gap-15">
-              <Link>
+              <div>
                 <img src="/images/prodcompare.svg" alt="prodcompare" />
-              </Link>
-              <Link>
+              </div>
+              <div>
                 <img src="/images/view.svg" alt="view" />
-              </Link>
-              <Link>
+              </div>
+              <div>
                 <img src="/images/add-cart.svg" alt="add cart" />
-              </Link>
+              </div>
             </div>
           </div>
         </Link>
