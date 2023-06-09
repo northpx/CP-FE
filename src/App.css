@@ -691,6 +691,12 @@ footer .input-group-text{
   color: #777777;
 }
 
+.error{
+  font-size: 12px;
+  color: #f90000;
+  margin-bottom: 0;
+}
+
 /* policy */
 .policy{
   background-color: white;

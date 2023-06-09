@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Marquee from 'react-fast-marquee'
 import BlogCard from '../components/BlogCard'
 import ProductCard from '../components/ProductCard'
@@ -7,8 +7,37 @@ import SpecialProduct from '../components/SpecialProduct'
 import SliderBanner from '../components/SliderBanner'
 import Meta from '../components/Meta'
 import Container from '../components/Container'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllBlogs } from '../features/blogs/blogSlice'
+import moment from 'moment'
+import { addToWishlist, getAllProducts } from '../features/products/productSlice'
+import ReactStars from 'react-rating-stars-component';
+
+
 
 const Home = () => {
+
+  const addToWish = (id) => {
+    dispatch(addToWishlist(id))
+  }
+
+  const blogState = useSelector((state) => state?.blog?.blog)
+  const productState = useSelector((state) => state.product.product)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getBlogs();
+    getProducts();
+  }, [])
+
+  const getBlogs = () => {
+    dispatch(getAllBlogs())
+  }
+
+  const getProducts = () => {
+    dispatch(getAllProducts())
+  }
   return (
     <>
       <Meta title={"E-Commerce App"}></Meta>
@@ -23,55 +52,55 @@ const Home = () => {
       </section>
 
       <Container class1='home-wrapper-1 py-5'>
-      <div className="row">
-            <div className="col-6">
-              <div className="main-banner position-relative">
-                <img src="images/main-banner-1.jpg" className='img-fluid' alt="main banner" />
-                <div className="main-banner-content position-absolute">
-                  <h4>SUPERCHARGED FOR PROS</h4>
-                  <h5>iPad S13+ Pro.</h5>
-                  <p>From $999.00 or $41.62/mo</p>
-                  <Link className='button'>BUY NOW</Link>
-                </div>
+        <div className="row">
+          <div className="col-6">
+            <div className="main-banner position-relative">
+              <img src="images/main-banner-1.jpg" className='img-fluid' alt="main banner" />
+              <div className="main-banner-content position-absolute">
+                <h4>SUPERCHARGED FOR PROS</h4>
+                <h5>iPad S13+ Pro.</h5>
+                <p>From $999.00 or $41.62/mo</p>
+                <Link className='button'>BUY NOW</Link>
               </div>
             </div>
-            <div className="col-6">
-              <div className="d-flex flex-wrap gap-12 justify-content-evenly align-items-center">
-                <div className="small-banner position-relative">
-                  <img src="images/catbanner-01.jpg" className='img-fluid' alt="small banner" />
-                  <div className="small-banner-content position-absolute">
-                    <h4>Best Sale</h4>
-                    <h5>Laptop Max</h5>
-                    <p>From $599.00 or <br /> $21.62/mo</p>
-                  </div>
+          </div>
+          <div className="col-6">
+            <div className="d-flex flex-wrap gap-12 justify-content-evenly align-items-center">
+              <div className="small-banner position-relative">
+                <img src="images/catbanner-01.jpg" className='img-fluid' alt="small banner" />
+                <div className="small-banner-content position-absolute">
+                  <h4>Best Sale</h4>
+                  <h5>Laptop Max</h5>
+                  <p>From $599.00 or <br /> $21.62/mo</p>
                 </div>
-                <div className="small-banner position-relative">
-                  <img src="images/catbanner-02.jpg" className='img-fluid' alt="small banner" />
-                  <div className="small-banner-content position-absolute">
-                    <h4>New Arrival</h4>
-                    <h5>Buy iPad Air</h5>
-                    <p>From $599.00  or <br /> $51.62/mo</p>
-                  </div>
+              </div>
+              <div className="small-banner position-relative">
+                <img src="images/catbanner-02.jpg" className='img-fluid' alt="small banner" />
+                <div className="small-banner-content position-absolute">
+                  <h4>New Arrival</h4>
+                  <h5>Buy iPad Air</h5>
+                  <p>From $599.00  or <br /> $51.62/mo</p>
                 </div>
-                <div className="small-banner position-relative">
-                  <img src="images/catbanner-03.jpg" className='img-fluid' alt="small banner" />
-                  <div className="small-banner-content position-absolute">
-                    <h4>15% Off</h4>
-                    <h5>Smartwatch 7</h5>
-                    <p>Shop the lastest band <br /> styles and colors</p>
-                  </div>
+              </div>
+              <div className="small-banner position-relative">
+                <img src="images/catbanner-03.jpg" className='img-fluid' alt="small banner" />
+                <div className="small-banner-content position-absolute">
+                  <h4>15% Off</h4>
+                  <h5>Smartwatch 7</h5>
+                  <p>Shop the lastest band <br /> styles and colors</p>
                 </div>
-                <div className="small-banner position-relative">
-                  <img src="images/catbanner-04.jpg" className='img-fluid' alt="small banner" />
-                  <div className="small-banner-content position-absolute">
-                    <h4>Free engraving</h4>
-                    <h5>AirPods Max</h5>
-                    <p>High-fidelity play back & <br /> ultra-low distortion</p>
-                  </div>
+              </div>
+              <div className="small-banner position-relative">
+                <img src="images/catbanner-04.jpg" className='img-fluid' alt="small banner" />
+                <div className="small-banner-content position-absolute">
+                  <h4>Free engraving</h4>
+                  <h5>AirPods Max</h5>
+                  <p>High-fidelity play back & <br /> ultra-low distortion</p>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </Container>
 
       <section className="home-wrapper-2 py-5">
@@ -197,10 +226,57 @@ const Home = () => {
                 Featured Collection
               </h3>
             </div>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
+          </div>
+          <div className="row">
+            {
+              productState && productState?.map((item, index) => {
+                if (item.tags === "featured") {
+                  return (
+                    <div key={index} className={"col-3"}>
+                      <div className="product-card position-relative">
+                        <div className="wishlist-icon position-absolute">
+                          <button className='border-0 bg-transparent' onClick={(e) => { addToWish(item?._id) }}>
+                            <img src="/images/wish.svg" alt="wishlist" />
+                          </button>
+                        </div>
+                        <div className="product-image">
+                          <img src="/images/tab1.jpg" className='product-img' alt="product img" />
+                          <img src="/images/tab.jpg" className='product-img' alt="product img" />
+                        </div>
+                        <div className="product-details">
+                          <h6 className='brand'>{item?.brand.title}</h6>
+                          <h5 className="product-title">
+                            {item?.title}
+                          </h5>
+                          <ReactStars
+                            name='star'
+                            count={5}
+                            size={24}
+                            value={+item?.totalrating}
+                            edit={false}
+                            activeColor="#ffd700"
+                          />
+                          <p className="price">$ {item?.price}</p>
+                        </div>
+                        <div className="action-bar position-absolute">
+                          <div className="d-flex flex-column gap-15">
+                            <div>
+                              <img src="/images/prodcompare.svg" alt="prodcompare" />
+                            </div>
+                            <button className='border-0 bg-transparent'>
+                              <img onClick={()=>navigate('/product/'+item?._id)} src="/images/view.svg" alt="view" />
+                            </button>
+                            <div>
+                              <img src="/images/add-cart.svg" alt="add cart" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+              })
+            }
           </div>
         </div>
       </section>
@@ -261,12 +337,15 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            <SpecialProduct />
-            <SpecialProduct />
-            <SpecialProduct />
-            <SpecialProduct />
-            <SpecialProduct />
-            <SpecialProduct />
+            {
+              productState && productState?.map((item, index) => {
+                if (item.tags === "special") {
+                  return (
+                    <SpecialProduct key={index} brand={item?.brand.title} title={item?.title} totalrating={+item?.totalrating} price={item?.price} sold={item?.sold} quantity={item?.quantity} />
+                  )
+                }
+              })
+            }
           </div>
         </div>
       </section>
@@ -280,10 +359,55 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
-            <ProductCard></ProductCard>
+            {
+              productState && productState?.map((item, index) => {
+                if (item.tags === "popular") {
+                  return (
+                    <div key={index} className={"col-3"}>
+                      <Link to=':id' className="product-card position-relative">
+                        <div className="wishlist-icon position-absolute">
+                          <button className='border-0 bg-transparent' onClick={(e) => { addToWish(item?._id) }}>
+                            <img src="/images/wish.svg" alt="wishlist" />
+                          </button>
+                        </div>
+                        <div className="product-image">
+                          <img src="/images/tab1.jpg" className='product-img' alt="product img" />
+                          <img src="/images/tab.jpg" className='product-img' alt="product img" />
+                        </div>
+                        <div className="product-details">
+                          <h6 className='brand'>{item?.brand.title}</h6>
+                          <h5 className="product-title">
+                            {item?.title}
+                          </h5>
+                          <ReactStars
+                            name='star'
+                            count={5}
+                            size={24}
+                            value={+item?.totalrating}
+                            edit={false}
+                            activeColor="#ffd700"
+                          />
+                          <p className="price">$ {item?.price}</p>
+                        </div>
+                        <div className="action-bar position-absolute">
+                          <div className="d-flex flex-column gap-15">
+                            <div>
+                              <img src="/images/prodcompare.svg" alt="prodcompare" />
+                            </div>
+                            <button className='border-0 bg-transparent'>
+                              <img onClick={()=>navigate('/product/'+item?._id)} src="/images/view.svg" alt="view" />
+                            </button>
+                            <div>
+                              <img src="/images/add-cart.svg" alt="add cart" />
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  )
+                }
+              })
+            }
           </div>
         </div>
       </section>
@@ -334,18 +458,15 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            <div className="col-3">
-              <BlogCard />
-            </div>
-            <div className="col-3">
-              <BlogCard />
-            </div>
-            <div className="col-3">
-              <BlogCard />
-            </div>
-            <div className="col-3">
-              <BlogCard />
-            </div>
+            {blogState &&
+              blogState?.map((item, index) => {
+                return (
+                  <div className="col-3" key={index}>
+                    <BlogCard id={item?._id} title={item?.title} description={item?.description} image={item?.image[0].url} date={moment(item?.createdAt).format('MMMM Do YYYY, h:mm a')} />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </section>
